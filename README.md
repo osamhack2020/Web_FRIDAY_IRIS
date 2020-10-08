@@ -7,7 +7,7 @@
 [issues-shield]: https://img.shields.io/github/issues/l0vey0u/Infra_FRIDAY_IRIS.svg?style=flat-square
 [issues-url]: hhttps://github.com/l0vey0u/Infra_FRIDAY_IRIS/issues
 [license-shield]: https://img.shields.io/github/license/l0vey0u/Infra_FRIDAY_IRIS.svg?style=flat-square
-[license-url]: https://github.com/l0vey0u/Infra_FRIDAY_IRIS/blob/main/LICENSE.txt
+[license-url]: https://github.com/l0vey0u/Infra_FRIDAY_IRIS/blob/main/LICENSE
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -15,9 +15,10 @@
 [![Issues][issues-shield]][issues-url]
 [![Apache 2.0 License][license-shield]][license-url]
 
-# I R I S
-
-<img src="https://github.com/l0vey0u/Infra_FRIDAY_IRIS/blob/main/team_logo.png" width="200">
+<h1 align="center"> I R I S </h1>
+<p align="center">
+  <img src="https://github.com/l0vey0u/Infra_FRIDAY_IRIS/blob/main/team_logo.png" width="200" alt="team logo">
+</p>
 
 ## 개발 배경
 
@@ -75,4 +76,4 @@ $ echo 추후 추가 예정
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
 
- * [Apache 2.0](https://github.com/l0vey0u/Infra_FRIDAY_IRIS/blob/main/license.md)
+ * [Apache 2.0](https://github.com/l0vey0u/Infra_FRIDAY_IRIS/blob/main/LICENSE)
