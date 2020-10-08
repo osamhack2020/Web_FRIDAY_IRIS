@@ -17,7 +17,7 @@
 
 # I R I S
 
-![Logo](https://github.com/l0vey0u/Infra_FRIDAY_IRIS/blob/main/team_logo.png)
+<img src="https://github.com/l0vey0u/Infra_FRIDAY_IRIS/blob/main/team_logo.png" width="200">
 
 ## 개발 배경
 
