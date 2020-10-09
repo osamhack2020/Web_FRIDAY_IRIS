@@ -67,8 +67,15 @@ This program consists of several  services that interact each other
 
 ## Installation Process
 
+0. Install docker follow below posts depends on your os
+
+- ["Install Docker at ubuntu 20.04"](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
+- ["Install Docker at Windows 10"](https://www.wsgvet.com/ubuntu/180?sfl=wr_subject%7C%7Cwr_content&stx=NAS&sst=wr_hit&sod=desc&sop=and&page=1)
+
+1. Docker Compose Installation (Don't need at already installed)
+
 ```bash
-$ echo Further scheduled
+$ ./install_docker-compse.sh
 ```
 
 ## Getting Started

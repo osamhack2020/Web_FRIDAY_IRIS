@@ -61,8 +61,15 @@
 
 ## 설치 안내 (Installation Process)
 
+0. Docker 미 설치 시 해당 글을 참고하여 설치
+
+- ["Install Docker at ubuntu 20.04"](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
+- ["Install Docker at Windows 10"](https://www.wsgvet.com/ubuntu/180?sfl=wr_subject%7C%7Cwr_content&stx=NAS&sst=wr_hit&sod=desc&sop=and&page=1)
+
+1. Docker Compose 미 설치시 해당 스크립트 실행
+
 ```bash
-$ echo 추후 추가 예정
+$ ./install_docker-compse.sh
 ```
 
 ## 프로젝트 사용법 (Getting Started)
