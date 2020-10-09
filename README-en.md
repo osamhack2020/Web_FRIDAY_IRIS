@@ -1,13 +1,13 @@
-[contributors-shield]: https://img.shields.io/github/contributors/l0vey0u/Infra_FRIDAY_IRIS?style=flat-square
-[contributors-url]: https://github.com/l0vey0u/Infra_FRIDAY_IRIS/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/l0vey0u/Infra_FRIDAY_IRIS.svg?style=flat-square
-[forks-url]: https://github.com/l0vey0u/Infra_FRIDAY_IRIS/network/members
-[stars-shield]: https://img.shields.io/github/stars/l0vey0u/Infra_FRIDAY_IRIS?style=flat-square
-[stars-url]: https://github.com/l0vey0u/Infra_FRIDAY_IRIS/stargazers
-[issues-shield]: https://img.shields.io/github/issues/l0vey0u/Infra_FRIDAY_IRIS.svg?style=flat-square
-[issues-url]: hhttps://github.com/l0vey0u/Infra_FRIDAY_IRIS/issues
-[license-shield]: https://img.shields.io/github/license/l0vey0u/Infra_FRIDAY_IRIS.svg?style=flat-square
-[license-url]: https://github.com/l0vey0u/Infra_FRIDAY_IRIS/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/osamhack2020/Infra_FRIDAY_IRIS?style=flat-square
+[contributors-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/osamhack2020/Infra_FRIDAY_IRIS.svg?style=flat-square
+[forks-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/network/members
+[stars-shield]: https://img.shields.io/github/stars/osamhack2020/Infra_FRIDAY_IRIS?style=flat-square
+[stars-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/stargazers
+[issues-shield]: https://img.shields.io/github/issues/osamhack2020/Infra_FRIDAY_IRIS.svg?style=flat-square
+[issues-url]: hhttps://github.com/osamhack2020/Infra_FRIDAY_IRIS/issues
+[license-shield]: https://img.shields.io/github/license/osamhack2020/Infra_FRIDAY_IRIS.svg?style=flat-square
+[license-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/blob/main/LICENSE
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -17,7 +17,7 @@
 
 <h1 align="center"> I R I S </h1>
 <p align="center">
-  <img src="https://github.com/l0vey0u/Infra_FRIDAY_IRIS/blob/main/team_logo.png" width="200" alt="team logo">
+  <img src="https://github.com/osamhack2020/Infra_FRIDAY_IRIS/blob/main/team_logo.png" width="200" alt="team logo">
 </p>
 
 ## Prolog
@@ -89,4 +89,4 @@ $ ./install_docker-compse.sh
 
 ## Copyleft / End User License
 
- * [Apache 2.0](https://github.com/l0vey0u/Infra_FRIDAY_IRIS/blob/main/LICENSE)
+ * [Apache 2.0](https://github.com/osamhack2020/Infra_FRIDAY_IRIS/blob/main/LICENSE)
