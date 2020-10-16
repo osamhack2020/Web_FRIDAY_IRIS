@@ -39,5 +39,7 @@ cd Infra_FRIDAY_IRIS/database
 # Delete Write permission at config file
 chmod a=rx master/*.cnf slave/*.cnf
 docker-compose up -d --build
+sleep 20s
+docker exec -i main_master_db mysql -u dbmanager -piris friday < friday.sql
 cd ../..
 rm -rf Infra_FRIDAY_IRIS
