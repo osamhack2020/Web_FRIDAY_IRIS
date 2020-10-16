@@ -1,13 +1,13 @@
-[contributors-shield]: https://img.shields.io/github/contributors/osamhack2020/Infra_FRIDAY_IRIS?style=flat-square
-[contributors-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/osamhack2020/Infra_FRIDAY_IRIS.svg?style=flat-square
-[forks-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/network/members
-[stars-shield]: https://img.shields.io/github/stars/osamhack2020/Infra_FRIDAY_IRIS?style=flat-square
-[stars-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/stargazers
-[issues-shield]: https://img.shields.io/github/issues/osamhack2020/Infra_FRIDAY_IRIS.svg?style=flat-square
-[issues-url]: hhttps://github.com/osamhack2020/Infra_FRIDAY_IRIS/issues
-[license-shield]: https://img.shields.io/github/license/osamhack2020/Infra_FRIDAY_IRIS.svg?style=flat-square
-[license-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/osamhack2020/Web_FRIDAY_IRIS?style=flat-square
+[contributors-url]: https://github.com/osamhack2020/Web_FRIDAY_IRIS/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/osamhack2020/Web_FRIDAY_IRIS.svg?style=flat-square
+[forks-url]: https://github.com/osamhack2020/Web_FRIDAY_IRIS/network/members
+[stars-shield]: https://img.shields.io/github/stars/osamhack2020/Web_FRIDAY_IRIS?style=flat-square
+[stars-url]: https://github.com/osamhack2020/Web_FRIDAY_IRIS/stargazers
+[issues-shield]: https://img.shields.io/github/issues/osamhack2020/Web_FRIDAY_IRIS.svg?style=flat-square
+[issues-url]: hhttps://github.com/osamhack2020/Web_FRIDAY_IRIS/issues
+[license-shield]: https://img.shields.io/github/license/osamhack2020/Web_FRIDAY_IRIS.svg?style=flat-square
+[license-url]: https://github.com/osamhack2020/Web_FRIDAY_IRIS/blob/main/LICENSE
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -17,7 +17,7 @@
 
 <h1 align="center"> I R I S </h1>
 <p align="center">
-  <img src="https://github.com/osamhack2020/Infra_FRIDAY_IRIS/blob/main/team_logo.png" width="200" alt="team logo">
+  <img src="https://github.com/osamhack2020/Web_FRIDAY_IRIS/blob/main/team_logo.png" width="200" alt="team logo">
 </p>
 
 ## 개발 배경
@@ -39,37 +39,52 @@
 
 ## 기능 설계
 
- -  추후 추가 예정
+### Database
+![HA-Database-Infra](https://drive.google.com/uc?export=download&id=1C9Wra6ZUjt2nFJY5dSKY6zYqQoIZ_dBM)
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 
 * Docker Engine 버젼 19.03 이상 
 * Docker Compose 버젼 1.27.4 이상
 
+1. Docker 미 설치 시 해당 글을 참고하여 설치
+
+- ["Install Docker at ubuntu 20.04"](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
+- ["Install Docker at Windows 10"](https://www.wsgvet.com/ubuntu/180?sfl=wr_subject%7C%7Cwr_content&stx=NAS&sst=wr_hit&sod=desc&sop=and&page=1)
+
+2. Docker Compose 미 설치시 해당 스크립트 실행
+
+```bash
+$ cd scripts
+$ ./install_docker-compse.sh
+```
+
 ## 기술 스택 (Technique Used)
-
-### Server(back-end)
-
- -  Nginx 
- -  uWSGI
- -  MYSQL
 
 ### front-end
 
  -  Flask
  -  SQLAlchemy
 
+### Database
+
+ - Mysql ( >= 8.0)
+
+### Load balancer
+
+ - HA Proxy
+
 ## 설치 안내 (Installation Process)
 
-0. Docker 미 설치 시 해당 글을 참고하여 설치
+1. Database 구축
 
-- ["Install Docker at ubuntu 20.04"](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
-- ["Install Docker at Windows 10"](https://www.wsgvet.com/ubuntu/180?sfl=wr_subject%7C%7Cwr_content&stx=NAS&sst=wr_hit&sod=desc&sop=and&page=1)
-
-1. Docker Compose 미 설치시 해당 스크립트 실행
+사용될 환경이 WSL 또는 Codespace일 경우 해당 브랜치의 파일로 작업하시면 됩니다.
 
 ```bash
-$ ./install_docker-compse.sh
+$ cd database
+$ docker-compose up -d --build
+# 미리 생성해둔 데이터 베이스 스키마 적용하기
+$ docker exec -i main_master_db mysql -u root -pIz0ne!!!! friday < friday.sql
 ```
 
 ## 프로젝트 사용법 (Getting Started)
@@ -83,4 +98,18 @@ $ ./install_docker-compse.sh
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
 
- * [Apache 2.0](https://github.com/osamhack2020/Infra_FRIDAY_IRIS/blob/main/LICENSE)
+### License
+
+This software is licensed under the [Apache 2 license](LICENSE), quoted below.
+
+Copyright 2020. Team IRIS
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this project except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.

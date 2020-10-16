@@ -1,13 +1,13 @@
-[contributors-shield]: https://img.shields.io/github/contributors/osamhack2020/Infra_FRIDAY_IRIS?style=flat-square
-[contributors-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/osamhack2020/Infra_FRIDAY_IRIS.svg?style=flat-square
-[forks-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/network/members
-[stars-shield]: https://img.shields.io/github/stars/osamhack2020/Infra_FRIDAY_IRIS?style=flat-square
-[stars-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/stargazers
-[issues-shield]: https://img.shields.io/github/issues/osamhack2020/Infra_FRIDAY_IRIS.svg?style=flat-square
-[issues-url]: hhttps://github.com/osamhack2020/Infra_FRIDAY_IRIS/issues
-[license-shield]: https://img.shields.io/github/license/osamhack2020/Infra_FRIDAY_IRIS.svg?style=flat-square
-[license-url]: https://github.com/osamhack2020/Infra_FRIDAY_IRIS/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/osamhack2020/Web_FRIDAY_IRIS?style=flat-square
+[contributors-url]: https://github.com/osamhack2020/Web_FRIDAY_IRIS/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/osamhack2020/Web_FRIDAY_IRIS.svg?style=flat-square
+[forks-url]: https://github.com/osamhack2020/Web_FRIDAY_IRIS/network/members
+[stars-shield]: https://img.shields.io/github/stars/osamhack2020/Web_FRIDAY_IRIS?style=flat-square
+[stars-url]: https://github.com/osamhack2020/Web_FRIDAY_IRIS/stargazers
+[issues-shield]: https://img.shields.io/github/issues/osamhack2020/Web_FRIDAY_IRIS.svg?style=flat-square
+[issues-url]: hhttps://github.com/osamhack2020/Web_FRIDAY_IRIS/issues
+[license-shield]: https://img.shields.io/github/license/osamhack2020/Web_FRIDAY_IRIS.svg?style=flat-square
+[license-url]: https://github.com/osamhack2020/Web_FRIDAY_IRIS/blob/main/LICENSE
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -17,7 +17,7 @@
 
 <h1 align="center"> I R I S </h1>
 <p align="center">
-  <img src="https://github.com/osamhack2020/Infra_FRIDAY_IRIS/blob/main/team_logo.png" width="200" alt="team logo">
+  <img src="https://github.com/osamhack2020/Web_FRIDAY_IRIS/blob/main/team_logo.png" width="200" alt="team logo">
 </p>
 
 ## Prolog
@@ -42,40 +42,52 @@ This program consists of several  services that interact each other
 
 ## Functional Design
 
- -  Further scheduled
+### Database
+![HA-Database-Infra](https://drive.google.com/uc?export=download&id=1C9Wra6ZUjt2nFJY5dSKY6zYqQoIZ_dBM)
 
 ## Prerequisites
 
 * Docker Engine version >= 19.03
 * Docker Compose version >= 1.27.4
 
+1. Install docker follow below posts depends on your os
+
+- ["Install Docker at ubuntu 20.04"](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
+- ["Install Docker at Windows 10"](https://www.wsgvet.com/ubuntu/180?sfl=wr_subject%7C%7Cwr_content&stx=NAS&sst=wr_hit&sod=desc&sop=and&page=1)
+
+2. Docker Compose Installation (Don't need at already installed)
+
+```bash
+$ cd scripts
+$ ./install_docker-compse.sh
+```
+
 ## Technique Used
-
-### Server(back-end)
-
- -  Nginx 
- -  uWSGI
- -  MYSQL
 
 ### front-end
 
  -  Flask
  -  SQLAlchemy
- 
-### Deep Learning
- -  Further scheduled
+
+### Database
+
+ - Mysql ( >= 8.0)
+
+### Load balancer
+
+ - HA Proxy
 
 ## Installation Process
 
-0. Install docker follow below posts depends on your os
+1. Compose Database
 
-- ["Install Docker at ubuntu 20.04"](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
-- ["Install Docker at Windows 10"](https://www.wsgvet.com/ubuntu/180?sfl=wr_subject%7C%7Cwr_content&stx=NAS&sst=wr_hit&sod=desc&sop=and&page=1)
-
-1. Docker Compose Installation (Don't need at already installed)
+IF you use wsl or codespace, checkout branch to wsl or codespace
 
 ```bash
-$ ./install_docker-compse.sh
+$ cd database
+$ docker-compose up -d --build
+# Load Database Scheme
+$ docker exec -i main_master_db mysql -u root -pIz0ne!!!! friday < friday.sql
 ```
 
 ## Getting Started
@@ -89,4 +101,18 @@ $ ./install_docker-compse.sh
 
 ## Copyleft / End User License
 
- * [Apache 2.0](https://github.com/osamhack2020/Infra_FRIDAY_IRIS/blob/main/LICENSE)
+### License
+
+This software is licensed under the [Apache 2 license](LICENSE), quoted below.
+
+Copyright 2020. Team IRIS
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this project except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.
