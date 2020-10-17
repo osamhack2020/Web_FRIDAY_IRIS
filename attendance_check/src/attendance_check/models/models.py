@@ -1,18 +1,14 @@
 # coding: utf-8
-from flask_sqlalchemy import SQLAlchemy
+from attendance_check import db
 
-
-db = SQLAlchemy()
-
-
+def init_scheme():
+    db.create_all()
 
 t_daily_eat_log = db.Table(
     'daily_eat_log',
     db.Column('daily_headcount_id', db.ForeignKey('date_mealtime_mapping.id', ondelete='RESTRICT', onupdate='RESTRICT'), primary_key=True, info='날짜 인덱스'),
     db.Column('member_id', db.ForeignKey('accounts.member_id', ondelete='RESTRICT', onupdate='RESTRICT'), nullable=False, index=True, info='구성원 고유 번호 [ 예) 군번 / 순번 ]')
 )
-
-
 
 class DailyMenu(db.Model):
     __tablename__ = 'daily_menu'
