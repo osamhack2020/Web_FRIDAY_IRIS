@@ -42,6 +42,9 @@
 ### Database
 ![HA-Database-Infra](https://drive.google.com/uc?export=download&id=1C9Wra6ZUjt2nFJY5dSKY6zYqQoIZ_dBM)
 
+### [WEB] QR코드를 이용한 식수현황 체크
+[API 설명 페이지](https://duckhoim.gitbook.io/friday/)
+
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 
 * Docker Engine 버젼 19.03 이상 
@@ -76,7 +79,7 @@ $ ./install_docker-compse.sh
 
 ## 설치 안내 (Installation Process)
 
-1. Database 구축
+1-1. Database 구축 ( at INFRA_FRIDAY )
 
 사용될 환경이 WSL 또는 Codespace일 경우 해당 브랜치의 파일로 작업하시면 됩니다.
 
@@ -85,6 +88,20 @@ $ cd database
 $ docker-compose up -d --build
 # 미리 생성해둔 데이터 베이스 스키마 적용하기
 $ docker exec -i main_master_db mysql -u root -pIz0ne!!!! friday < friday.sql
+```
+
+1-2. Database 구축 ( at Web_FRIDAY )
+
+```bash
+$ cd scripts
+$ ./run_infra.sh
+```
+
+2. 식수현황 체크 app 실행하기 ( at Web_FRIDAY )
+
+```bash
+$ cd attendance_check
+$ docker-compose up -d --build
 ```
 
 ## 프로젝트 사용법 (Getting Started)
