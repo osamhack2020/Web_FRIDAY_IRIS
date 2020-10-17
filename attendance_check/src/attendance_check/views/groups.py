@@ -2,9 +2,9 @@ from flask import Blueprint, jsonify
 from attendance_check import db
 from attendance_check.models.models import GroupList, SupplyList
 
-groups = Blueprint('groups', __name__)
+groups = Blueprint('groups', __name__, url_prefix='/groups')
 
-@groups.route('/groups/<supply_name>', methods=['GET'])
+@groups.route('/<supply_name>', methods=['GET'])
 def get_group_list(supply_name):
     row = SupplyList.query.filter_by(name=supply_name).first()
     if not row:
