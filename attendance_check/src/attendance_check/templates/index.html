@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Reader</title>
+    <!-- CSS 속성 공부 후 Codepen에서 얻어온 스캐너 UI 적용하자 -->
+    <!-- https://codepen.io/lihowe/pen/oNNBEXm -->
+		<!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='JsQRScanner.css') }}">     -->
+    <script type="text/javascript" src="{{ url_for('static', filename='jsqrscanner.nocache.js') }}"></script>
+	</head>
+	<body>
+		<div class="row-element-set row-element-set-QRScanner">
+			<noscript>
+				<div class="row-element-set error_message">
+          자바스크립트 허용 후 다시 이용해주세요
+        </div>
+			</noscript>
+			<div class="row-element">
+				<div class="FlexPanel detailsPanel QRScannerShort">
+					<div class="FlexPanel shortInfoPanel">
+						<div class="gwt-HTML">
+              QR 코드를 카메라에 보여주세요
+            </div>
+					</div>
+				</div>
+			</div>
+      <br>
+      <div class="scanner-container">
+        <div class="scanner">
+          <div class="qrscanner" id="scanner"></div>
+        </div>
+      </div>
+    </div>
+		<script type="text/javascript" src="{{ url_for('static', filename='qrscan.js') }}"></script>
+	</body>
+</html>

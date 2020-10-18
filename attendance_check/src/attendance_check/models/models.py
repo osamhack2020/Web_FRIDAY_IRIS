@@ -6,8 +6,8 @@ def init_scheme():
 
 t_daily_eat_log = db.Table(
     'daily_eat_log',
-    db.Column('daily_headcount_id', db.ForeignKey('date_mealtime_mapping.id', ondelete='RESTRICT', onupdate='RESTRICT'), primary_key=True, info='날짜 인덱스'),
-    db.Column('member_id', db.ForeignKey('accounts.member_id', ondelete='RESTRICT', onupdate='RESTRICT'), nullable=False, index=True, info='구성원 고유 번호 [ 예) 군번 / 순번 ]')
+    db.Column('date_id', db.ForeignKey('date_mealtime_mapping.id', ondelete='RESTRICT', onupdate='RESTRICT'), primary_key=True, info='날짜 인덱스'),
+    db.Column('member_id', db.ForeignKey('group_member_info.id', ondelete='RESTRICT', onupdate='RESTRICT'), nullable=False, index=True, info='구성원 고유 번호 [ 예) 군번 / 순번 ]')
 )
 
 class DailyMenu(db.Model):
@@ -34,9 +34,8 @@ class DateMealtimeMapping(db.Model):
     __tablename__ = 'date_mealtime_mapping'
 
     id = db.Column(db.Integer, primary_key=True, info='인덱스')
-    korean_date = db.Column(db.Date, nullable=False, unique=True, info='날짜(20200101)')
+    korean_date = db.Column(db.Date, nullable=False, info='날짜(20200101)')
     meal_time = db.Column(db.Enum('breakfast', 'lunch', 'dinner'), nullable=False, info='식사시간 ( 1~3 : 아침, 점심, 저녁 )')
-
     members = db.relationship('Account', secondary='daily_eat_log', backref='date_mealtime_mappings')
 
 
@@ -60,8 +59,8 @@ class DailyHolidayCheck(DateMealtimeMapping):
     in_end_year = db.Column(db.Boolean, nullable=False, info='연말 ( 12 /  21~31 ) 여부')
 
 
-class DailyWeatherJnfo(DateMealtimeMapping):
-    __tablename__ = 'daily_weather_jnfo'
+class DailyWeatherInfo(DateMealtimeMapping):
+    __tablename__ = 'daily_weather_info'
 
     date_id = db.Column(db.ForeignKey('date_mealtime_mapping.id', ondelete='RESTRICT', onupdate='RESTRICT'), primary_key=True, info='날짜 인덱스')
     is_abnormal_temperature = db.Column(db.Boolean, nullable=False, info='이상 기온 여부')

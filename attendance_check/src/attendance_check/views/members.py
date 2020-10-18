@@ -19,7 +19,8 @@ def get_member_info(member_id):
             msg = "그룹 정보가 등록되어 있지 않은 사용자입니다."
         ), 404
     return jsonify(
-        ID = row.member_id,
-        NAME = row.name,
-        Group = row2.name
+        idx = row.id,
+        id = row.member_id,
+        name = row.name,
+        group = row2.name
     ), 200
