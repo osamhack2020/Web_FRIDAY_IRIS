@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>QR Scanner</title>
+		<!-- <link rel="stylesheet" href="{{ url_for('static', filename='qrscan.css') }}"> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='qrjs/jsqrscanner.nocache.js') }}"></script>
+	</head>
+	<body>
+		<div class="row-element-set row-element-set-QRScanner">
+			<noscript>
+				<div class="row-element-set error_message">
+          자바스크립트 허용 후 다시 이용해주세요
+        </div>
+			</noscript>
+			<div class="row-element">
+				<div class="FlexPanel detailsPanel QRScannerShort">
+					<div class="FlexPanel shortInfoPanel">
+						<div class="gwt-HTML">
+              QR 코드를 카메라에 보여주세요
+            </div>
+					</div>
+				</div>
+			</div>
+      <br>
+      <div class="qrscanner" id="scanner"></div>
+    </div>
+		<script type="text/javascript" src="{{ url_for('static', filename='qrscan.js') }}"></script>
+	</body>
+</html>

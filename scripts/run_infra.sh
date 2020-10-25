@@ -1,9 +1,10 @@
 #!/bin/bash
 # check already running
+rebuild='n'
 if [ "$(docker ps -q -f name=haproxy)" ]; then
     read -p " If you wanna re compose infra ??? [y/n]" req_rebuild
     if [ ${req_rebuild} == 'y' ] || [ ${req_rebuild} == 'Y' ]; then
-        docker-compose down -v
+        rebuild='y'
     else
         echo "Exit this script"
         exit 0
@@ -38,6 +39,9 @@ fi
 cd Infra_FRIDAY_IRIS/database
 # Delete Write permission at config file
 chmod a=rx master/*.cnf slave/*.cnf
+if [ ${rebuild} == 'y' ]; then
+    docker-compose down -v
+fi
 docker-compose up -d --build
 sleep 20s
 docker exec -i main_master_db mysql -u dbmanager -piris friday < friday.sql

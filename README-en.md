@@ -45,6 +45,9 @@ This program consists of several  services that interact each other
 ### Database
 ![HA-Database-Infra](https://drive.google.com/uc?export=download&id=1C9Wra6ZUjt2nFJY5dSKY6zYqQoIZ_dBM)
 
+### [WEB] Attendance Check using QR
+[API docs](https://duckhoim.gitbook.io/friday/)
+
 ## Prerequisites
 
 * Docker Engine version >= 19.03
@@ -79,7 +82,7 @@ $ ./install_docker-compse.sh
 
 ## Installation Process
 
-1. Compose Database
+1-1. Compose Database ( at INFRA_FRIDAY )
 
 IF you use wsl or codespace, checkout branch to wsl or codespace
 
@@ -88,6 +91,20 @@ $ cd database
 $ docker-compose up -d --build
 # Load Database Scheme
 $ docker exec -i main_master_db mysql -u root -pIz0ne!!!! friday < friday.sql
+```
+
+1-2. Compose Database ( at Web_FRIDAY )
+
+```bash
+$ cd scripts
+$ ./run_infra.sh
+```
+
+2. Run Attendance Check app ( at Web_FRIDAY )
+
+```bash
+$ cd attendance_check
+$ docker-compose up -d --build
 ```
 
 ## Getting Started

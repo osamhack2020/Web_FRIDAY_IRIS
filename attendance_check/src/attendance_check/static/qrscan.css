@@ -1,0 +1,82 @@
+.qrscanner video {
+  flex-grow: 1;
+}
+
+.row-element-set {
+  display: flex;
+  flex-direction: column;
+}
+.row-element {
+  padding: .2em 0em;
+}
+
+.row-element-set-QRScanner
+{
+  max-width: 30em; 
+  display: flex;
+  flex-direction: column;
+}
+
+body
+{
+  display: flex;
+  justify-content: center;
+}
+
+.form-field-caption {
+  font-weight: bold;
+}
+
+.form-field-input
+{
+ width: 100%; 
+}
+
+    .error_message {
+       color: red; 
+       background-color: white; 
+       border: 1px solid red; 
+       padding: 4px; 
+       font-family: sans-serif 
+    }
+
+    .scanner-container {
+      height: 100vh;
+      width: 100vw;
+      background: #000;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .scanner-container .scanner {
+      width: 30vw;
+      height: 30vw;
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      display: flex;
+      transform: translateX(-50%);
+      background: linear-gradient(#fff, #fff) left top, linear-gradient(#fff, #fff) left top, linear-gradient(#fff, #fff) right top, linear-gradient(#fff, #fff) right top, linear-gradient(#fff, #fff) left bottom, linear-gradient(#fff, #fff) left bottom, linear-gradient(#fff, #fff) right bottom, linear-gradient(#fff, #fff) right bottom;
+      background-repeat: no-repeat;
+      background-size: 2px 24px, 24px 2px;
+    }
+    .scanner-container .scanner:before {
+      content: "";
+      position: absolute;
+      width: 120%;
+      background: #00a001;
+      top: 0;
+      left: -10%;
+      height: 5px;
+      border-radius: 100%;
+      box-shadow: 0 0 4px 0 green;
+      animation: scan ease-in-out 2s infinite;
+    }
+    @keyframes scan {
+      from {
+        top: 0;
+      }
+      to {
+        top: 95%;
+      }
+    }
