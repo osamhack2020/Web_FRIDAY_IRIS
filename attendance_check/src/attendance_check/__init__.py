@@ -1,7 +1,9 @@
 from flask import Flask
+from flask_migrate import Migrate
 from attendance_check.models import get_db
 
 app = Flask(__name__)
+# Support UTF8
+app.config['JSON_AS_ASCII'] = False
 db = get_db(app)
-from attendance_check.models.models import init_scheme
-init_scheme()
+migrate = Migrate(app, db)

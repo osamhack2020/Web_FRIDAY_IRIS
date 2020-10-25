@@ -1,3 +1,14 @@
+// from https://stackoverflow.com/questions/19020830/autoclose-alert
+function tempAlert(msg,duration)
+{
+ var el = document.createElement("div");
+ el.setAttribute("style","position:absolute;top:40%;left:20%;background-color:white;");
+ el.innerHTML = msg;
+ setTimeout(function(){
+  el.parentNode.removeChild(el);
+ },duration);
+ document.body.appendChild(el);
+}
 function onQRCodeScanned(scannedText)
 {
   var today = new Date();
@@ -11,8 +22,8 @@ function onQRCodeScanned(scannedText)
   } else {
     mealtime = 'dinner'
   }
-
-  var reqFormat = "/^\d+-\d+$/g";
+  // ajax sending scanned qr 
+  var reqFormat = /^\d+-\d+$/g
   fetch("/date/"+date+"_"+mealtime)
     .then(res => res.json())
     .then(async (res) => {
@@ -25,13 +36,16 @@ function onQRCodeScanned(scannedText)
                 date_id: date_id,
                 member_id: member_id
             };
-            const res_3 = await fetch("/eatlogs/", {
+            const res_3 = await fetch("/eatlogger/write/", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(payload)
             });
+            if(res_3.ok == true) {
+              tempAlert(scannedText, 1000)
+            }
             return await res_3.json();
         }
     })
