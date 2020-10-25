@@ -67,10 +67,11 @@ $ ./install_docker-compse.sh
 * HTML5 MediaDevices API 지원 기기
   * https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices
   * 안드로이드 스마트폰 브라우저 : 구글 크롬, 삼성 인터넷 지원
-  
+
 ## 기술 스택 (Technique Used)
 
 ### front-end
+
  0. 공통사항
  -  Flask : 웹 프레임워크
  -  SQLAlchemy : DB ORM
@@ -85,7 +86,7 @@ $ ./install_docker-compse.sh
 ### Load balancer
 
  - HA Proxy
- - SQLAlchemy 객체가 bind할 mysql uri를 쿼리 전에 지정해 주어 분산 구현
+ - SQLAlchemy 객체가 bind할 mysql uri를 쿼리 전에 지정해 주어 R/W splitting 구현
    - [adhorn님 script](https://gist.github.com/adhorn/b84dc47175259992d406) 참고 
 
 ## 설치 안내 (Installation Process)
@@ -123,7 +124,7 @@ $ docker-compose up -d --build
 
 자동으로 시간대를 인식해서 기록되기 때문에 해당 기기의 시간이 잘 설정되있는지만 확인해주시면 됩니다.
 
-![qr인식화면](/blob/main/res/screenshot/check_screen.jpg?raw=true)
+![qr인식화면](/res/screenshot/check_screen.jpg?raw=true)
 
 1. Endpoint ( ```url/qr/scan```)로 접속
 
