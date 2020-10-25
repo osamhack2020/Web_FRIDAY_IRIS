@@ -44,6 +44,9 @@ if [ ${rebuild} == 'y' ]; then
 fi
 docker-compose up -d --build
 sleep 20s
-docker exec -i main_master_db mysql -u dbmanager -piris friday < friday.sql
+docker exec attendance_check flask db init
+docker exec attendance_check flask db migrate
+docker exec attendance_check flask db upgrade
+
 cd ../..
 rm -rf Infra_FRIDAY_IRIS

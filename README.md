@@ -62,12 +62,21 @@ $ cd scripts
 $ ./install_docker-compse.sh
 ```
 
+### 실 식수인원 체크 서비스
+
+* HTML5 MediaDevices API 지원 기기
+  * https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices
+  * 안드로이드 스마트폰 브라우저 : 구글 크롬, 삼성 인터넷 지원
+  
 ## 기술 스택 (Technique Used)
 
 ### front-end
+ 0. 공통사항
+ -  Flask : 웹 프레임워크
+ -  SQLAlchemy : DB ORM
 
- -  Flask
- -  SQLAlchemy
+ 1. 실 식수인원 체크 ( attendance_check )
+ - [JsQRScanner](https://github.com/jbialobr/JsQRScanner) : qr scanner on website
 
 ### Database
 
@@ -76,18 +85,18 @@ $ ./install_docker-compse.sh
 ### Load balancer
 
  - HA Proxy
+ - SQLAlchemy 객체가 bind할 mysql uri를 쿼리 전에 지정해 주어 분산 구현
+   - [adhorn님 script](https://gist.github.com/adhorn/b84dc47175259992d406) 참고 
 
 ## 설치 안내 (Installation Process)
 
 1-1. Database 구축 ( at INFRA_FRIDAY )
 
-사용될 환경이 WSL 또는 Codespace일 경우 해당 브랜치의 파일로 작업하시면 됩니다.
+<b>사용될 환경이 WSL 또는 Codespace일 경우 해당 브랜치의 파일로 작업하시면 됩니다.</b>
 
 ```bash
 $ cd database
 $ docker-compose up -d --build
-# 미리 생성해둔 데이터 베이스 스키마 적용하기
-$ docker exec -i main_master_db mysql -u root -pIz0ne!!!! friday < friday.sql
 ```
 
 1-2. Database 구축 ( at Web_FRIDAY )
@@ -106,7 +115,21 @@ $ docker-compose up -d --build
 
 ## 프로젝트 사용법 (Getting Started)
 
-- 추후 추가 예정
+### 실 식수인원 체크 서비스
+
+우선 회원번호로 QR코드를 만들고 각 회원에게 배포합니다.
+
+그후 아래 과정을 통해 인식시키면 됩니다.
+
+자동으로 시간대를 인식해서 기록되기 때문에 해당 기기의 시간이 잘 설정되있는지만 확인해주시면 됩니다.
+
+![qr인식화면](/blob/main/res/screenshot/check_screen.jpg?raw=true)
+
+1. Endpoint ( ```url/qr/scan```)로 접속
+
+2. 후면 카메라에 QR코드를 비추기
+
+3. 5~10초 후 DB에 기록된 후 나오는 자신의 회원번호 메시지를 보면 인식 완료
 
 ## 팀 정보 (Team Information)
 
@@ -130,3 +153,11 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
+
+---
+
+JsQRScanner
+
+https://github.com/jbialobr/JsQRScanner
+
+Apache License 2.0
