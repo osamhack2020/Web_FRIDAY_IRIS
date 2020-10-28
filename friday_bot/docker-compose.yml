@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  friday_bot:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: friday_bot
+    networks:
+      db_net:
+        ipv4_address: 172.20.1.249
+networks:
+  db_net:
+    external:
+      name: database_db_net

@@ -1,0 +1,11 @@
+# Connection
+requests
+pymysql
+mysqlclient
+sqlalchemy
+# Data Processing
+beautifulsoup4
+xmltodict
+pandas
+# PTB
+pyTelegramBotAPI==3.7.3
