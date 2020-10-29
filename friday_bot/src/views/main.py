@@ -4,6 +4,7 @@ import telebot
 import logging
 from models.register import available_password, available_group_name, get_user_cafeteria_id, add_group, add_group_user
 from models.eatlog import check_uneater, find_chat_id, set_chat_id, find_member_id, find_mid_at_map, find_member_name
+from views.predict import predict
 from datetime import datetime
 import json
 import requests
@@ -42,6 +43,8 @@ def callback_menu(call):
             req_group(chat_id)
         elif call.data == "c":
             report_uneater(chat_id)
+        elif call.data == "d":
+            predict(chat_id)
         elif call.data == "e":
             logout(chat_id)
     elif call.message and call.data.isdigit():
