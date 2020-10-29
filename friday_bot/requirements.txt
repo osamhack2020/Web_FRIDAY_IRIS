@@ -9,3 +9,7 @@ xmltodict
 pandas
 # PTB
 pyTelegramBotAPI==3.7.3
+# DB Migration
+alembic
+# dependancy
+cryptography  # pymysql

@@ -11,5 +11,7 @@ RUN locale-gen ko_KR.UTF-8
 ENV LC_ALL ko_KR.UTF-8
 
 COPY ./src /app
-
+RUN alembic init alembic
+RUN mv -f /app/models/alembic.ini /app/alembic.ini
+RUN mv -f /app/models/env.py /app/alembic/env.py
 CMD ["python","app.py"]

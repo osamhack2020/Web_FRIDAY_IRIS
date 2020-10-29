@@ -2,7 +2,7 @@ from bot import bot
 import os
 import telebot
 import logging
-from models.register import available_register_code, set_user_info
+from models.register import available_register_code, set_user_info, available_cafeteria, add_cafeteria
 
 pool = {}
 
@@ -62,16 +62,19 @@ def req_user_cafeteria(chat_id):
 
 def set_user_cafeteria(message):
     chat_id = message.chat.id
+    if not available_cafeteria(message.text):
+        add_cafeteria(message.text)
     pool[str(chat_id)]['cafeteria'] = message.text
     req_user_authkey(chat_id)
 
 def req_user_authkey(chat_id):
     markup = telebot.types.ForceReply(selective=False)
     sent = bot.send_message(chat_id, "사용하실 비밀번호를 입력해주세요", reply_markup=markup)
-    bot.register_next_step_handler(sent, set_user_authkey)
+    bot.register_next_step_handler(sent, set_user_password)
 
-def set_user_authkey(message):
+def set_user_password(message):
     chat_id = message.chat.id
     pool[str(chat_id)]['password'] = message.text
-    set_user_info(pool[str(chat_id)])
+    set_user_info(chat_id, pool[str(chat_id)])
     pool.pop(str(chat_id))
+    bot.send_message(chat_id, "회원가입이 완료되었습니다.")
