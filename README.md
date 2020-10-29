@@ -114,6 +114,15 @@ $ cd attendance_check
 $ docker-compose up -d --build
 ```
 
+3. 텔레그램 챗봇 서버 실행하기
+
+```bash
+$ cd friday_bot
+$ docker-compose up -d --build
+```
+
+그 후 텔레그램 내 @IrisFridayBot을 찾으면 시작 가능합니다.
+
 ## 프로젝트 사용법 (Getting Started)
 
 ### 실 식수인원 체크 서비스

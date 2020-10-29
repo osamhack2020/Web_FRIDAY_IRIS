@@ -1,9 +1,12 @@
-from bot import bot
+from bot import bot, file_handle_pool, MYTOKEN, sess, download_path
 import telebot
 import logging
 from views.register import check_register_code
-from views.main import check_password
+from views.main import check_password, reply_after_parse_g
+from views.menuinfo import reply_after_parse_m
 from models.models import init_db
+import os
+import requests
 init_db()
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -32,6 +35,25 @@ def login(message):
     sent = bot.send_message(chat_id, "비밀번호를 입력해주세요.", reply_markup=markup)
     bot.register_next_step_handler(sent, check_password)
 
+@bot.message_handler(content_types=['document'])
+def handle_docs(message):
+    chat_id = message.chat.id
+    if str(chat_id) not in sess:
+        bot.send_message(chat_id, "로그인 후 이용해주세요")
+        return
+    file_name, server_file_path = message.document.file_name, bot.get_file(message.document.file_id).file_path
+    with open(os.path.join(download_path, file_name.replace(' ', '-')), "w+b") as f:
+        res = requests.get('https://api.telegram.org/file/bot{0}/{1}'.format(MYTOKEN, server_file_path))
+        f.write(res.content)
+    bot.send_message(chat_id, "파일을 성공적으로 받았습니다.")
+    bot.send_message(chat_id, "파일 등록을 시작합니다. 최대 2~3분 걸릴 수 있습니다.")
+    if file_handle_pool[0] == "set_group":
+        reply_after_parse_g(chat_id, file_name)
+        file_handle_pool.remove("set_group")
+    elif file_handle_pool[0] == "set_menu":
+        reply_after_parse_m(chat_id, file_name)
+        file_handle_pool.remove("set_menu")
+        
 @bot.message_handler(commands=['hide'])
 def command_hide(message):
 	hide_markup = telebot.types.ReplyKeyboardRemove()

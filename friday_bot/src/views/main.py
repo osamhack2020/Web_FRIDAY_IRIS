@@ -1,4 +1,4 @@
-from bot import bot, download_path, MYTOKEN
+from bot import bot, download_path, MYTOKEN, sess, file_handle_pool
 import os
 import telebot
 import logging
@@ -7,7 +7,6 @@ from models.eatlog import check_uneater, find_chat_id, set_chat_id, find_member_
 from datetime import datetime
 import json
 import requests
-sess = {} # 얘를 bot에 빼도 괜찮을 듯
 
 def check_password(message):
     chat_id = message.chat.id
@@ -36,8 +35,12 @@ def callback_menu(call):
     chat_id = call.message.chat.id
     if call.message and call.data.isalpha():
         if call.data == "a":
+            file_handle_pool.append("set_group")
             req_group(chat_id)
-        if call.data == "c":
+        elif call.data == "b":
+            file_handle_pool.append("set_menu")
+            req_group(chat_id)
+        elif call.data == "c":
             report_uneater(chat_id)
         elif call.data == "e":
             logout(chat_id)
@@ -61,22 +64,12 @@ def req_group(chat_id):
     if str(chat_id) not in sess:
         bot.send_message(chat_id, "로그인 후 이용해주세요")
     else:
-        bot.send_message(chat_id, "인원 정보 파일을 보내주세요")
-
-@bot.message_handler(content_types=['document'])
-def handle_docs(message):
-    if str(message.chat.id) not in sess:
-        bot.send_message(message.chat.id, "로그인 후 이용해주세요")
-        return
-    file_name, server_file_path = message.document.file_name, bot.get_file(message.document.file_id).file_path
-    with open(os.path.join(download_path, file_name.replace(' ', '-')), "w+b") as f:
-        res = requests.get('https://api.telegram.org/file/bot{0}/{1}'.format(MYTOKEN, server_file_path))
-        f.write(res.content)
-    bot.send_message(message.chat.id, "파일을 성공적으로 받았습니다.")
-    bot.send_message(message.chat.id, "파일 등록을 시작합니다. 최대 2~3분 걸릴 수 있습니다.")
-    reply_after_parse(message.chat.id, file_name)
-
-def reply_after_parse(chat_id, file_name):
+        if file_handle_pool[0] == "set_group":
+            bot.send_message(chat_id, "인원 정보 파일을 보내주세요")
+        elif file_handle_pool[0] == "set_menu":
+            bot.send_message(chat_id, "메뉴 정보 파일을 보내주세요")
+            
+def reply_after_parse_g(chat_id, file_name):
     c = get_user_cafeteria_id(chat_id)
     with open(os.path.join(download_path,file_name)) as f:
         cont = f.readlines()
