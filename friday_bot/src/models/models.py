@@ -10,6 +10,18 @@ def init_db():
     db_engine = default_engine
     Base.metadata.create_all(db_engine)
 
+class MemberChatIdMapping(Base):
+
+    __tablename__ = 'member_chat_id_map'
+
+    id = Column(Integer, primary_key=True)
+    member_id = Column(ForeignKey('group_member_info.id', ondelete='RESTRICT', onupdate='RESTRICT'), nullable=False, index=True, info='멤버 인덱스')
+    chat_id = Column(Integer, nullable=False, info='채팅방 고유번호')
+
+    def __init__(self, member_id, chat_id):
+        self.member_id = member_id
+        self.chat_id = chat_id
+
 class RegisterCode(Base):
  
     __tablename__ = 'register_code'
@@ -48,7 +60,7 @@ t_daily_eat_log = Table(
     'daily_eat_log',
     Base.metadata,
     Column('date_id', ForeignKey('date_mealtime_mapping.id', ondelete='RESTRICT', onupdate='RESTRICT'), primary_key=True, info='날짜 인덱스'),
-    Column('member_id', ForeignKey('group_member_info.id', ondelete='RESTRICT', onupdate='RESTRICT'), nullable=False, index=True, info='구성원 고유 번호 [ 예) 군번 / 순번 ]')
+    Column('member_id', ForeignKey('group_member_info.id', ondelete='RESTRICT', onupdate='RESTRICT'), nullable=False, index=True, info='멤버 인덱스')
 )
 
 t_daily_menu = Table(

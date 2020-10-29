@@ -3,7 +3,7 @@ import os
 import telebot
 import logging
 from models.register import available_password, available_group_name, get_user_cafeteria_id, add_group, add_group_user
-from models.eatlog import check_uneater
+from models.eatlog import check_uneater, find_chat_id, set_chat_id, find_member_id, find_mid_at_map, find_member_name
 from datetime import datetime
 import json
 import requests
@@ -34,19 +34,27 @@ def show_available_menu(chat_id):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_menu(call):
     chat_id = call.message.chat.id
-    if call.message:
+    if call.message and call.data.isalpha():
         if call.data == "a":
             req_group(chat_id)
         if call.data == "c":
             report_uneater(chat_id)
         elif call.data == "e":
             logout(chat_id)
+    elif call.message and call.data.isdigit():
+        send_alert(chat_id)
+
+def send_alert(chat_id):
+    mid = find_mid_at_map(chat_id)
+    name = find_member_name(mid)
+    bot.send_message(chat_id, "{}님 식사하실 시간 입니다.".format(name))
 
 def report_uneater(chat_id):
     markup = telebot.types.InlineKeyboardMarkup(row_width=1)
     l = check_uneater(1)
     for i, name in enumerate(l):
-        markup.add(telebot.types.InlineKeyboardButton(text=name, callback_data=str(i)))
+        mid = find_member_id(name)
+        markup.add(telebot.types.InlineKeyboardButton(text=name, callback_data=mid))
     sent = bot.send_message(chat_id, "버튼을 누르면 식사 권유 메시지를 보냅니다.", reply_markup = markup)
 
 def req_group(chat_id):
@@ -78,7 +86,15 @@ def reply_after_parse(chat_id, file_name):
             add_group(c, g)
         add_group_user(g, m, k)
     bot.send_message(chat_id, "등록을 완료하였습니다")
-    
+
+@bot.message_handler(commands=['conn_group'])
+def send_ur_chat_id(message):
+    chat_id = message.chat.id
+    usr_name = message.chat.first_name + message.chat.last_name
+    mid = find_member_id(usr_name)
+    set_chat_id(chat_id, mid)
+    bot.send_message(chat_id, "등록이 완료되었습니다.")
+
 def logout(chat_id):
     sess.pop(str(chat_id))
     bot.send_message(chat_id, "로그아웃 완료")
