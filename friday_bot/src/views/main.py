@@ -3,7 +3,7 @@ import os
 import telebot
 import logging
 from models.register import available_password, available_group_name, get_user_cafeteria_id, add_group, add_group_user
-from models.eatlog import check_uneater, find_chat_id, set_chat_id, find_member_id, find_mid_at_map, find_member_name
+from models.eatlog import check_uneater, find_chat_id, set_chat_id, find_member_id, find_mid_at_map, find_member_name, find_cafeteria_id
 from views.predict import predict
 from datetime import datetime
 import json
@@ -57,20 +57,24 @@ def send_alert(chat_id):
 
 def report_uneater(chat_id):
     markup = telebot.types.InlineKeyboardMarkup(row_width=1)
-    l = check_uneater(1)
-    for i, name in enumerate(l):
-        mid = find_member_id(name)
-        markup.add(telebot.types.InlineKeyboardButton(text=name, callback_data=mid))
-    sent = bot.send_message(chat_id, "버튼을 누르면 식사 권유 메시지를 보냅니다.", reply_markup = markup)
-
+    c_id = find_cafeteria_id(chat_id)
+    l = check_uneater(c_id, 1)
+    if l:
+        for i, name in enumerate(l):
+            mid = find_member_id(name)
+            markup.add(telebot.types.InlineKeyboardButton(text=name, callback_data=mid))
+        sent = bot.send_message(chat_id, "버튼을 누르면 식사 권유 메시지를 보냅니다.", reply_markup = markup)
+    else:
+        bot.send_message(chat_id, "미 식사자가 없습니다")
 def req_group(chat_id):
     if str(chat_id) not in sess:
         bot.send_message(chat_id, "로그인 후 이용해주세요")
     else:
-        if file_handle_pool[0] == "set_group":
-            bot.send_message(chat_id, "인원 정보 파일을 보내주세요")
-        elif file_handle_pool[0] == "set_menu":
-            bot.send_message(chat_id, "메뉴 정보 파일을 보내주세요")
+        if len(file_handle_pool) > 0:
+            if file_handle_pool[0] == "set_group":
+                bot.send_message(chat_id, "인원 정보 파일을 보내주세요")
+            elif file_handle_pool[0] == "set_menu":
+                bot.send_message(chat_id, "메뉴 정보 파일을 보내주세요")
             
 def reply_after_parse_g(chat_id, file_name):
     c = get_user_cafeteria_id(chat_id)

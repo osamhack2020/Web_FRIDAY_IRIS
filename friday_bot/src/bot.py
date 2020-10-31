@@ -9,3 +9,4 @@ if not os.path.exists('downloads'):
 download_path = os.path.join(cur_path, 'downloads')
 sess = {}
 file_handle_pool = []
+loc_handle_pool = []

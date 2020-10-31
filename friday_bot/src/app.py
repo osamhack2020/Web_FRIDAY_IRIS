@@ -20,7 +20,7 @@ def send_welcome(message):
     if not usr_name:
         usr_name = message.chat.first_name + message.chat.last_name
     bot.send_message(chat_id, "안녕하세여 {}님 무엇을 도와 드릴까요?".format(usr_name))
-
+    bot.send_message(chat_id, "'/'를 치시면 사용가능한 명령어가 나옵니다.")
 @bot.message_handler(commands=['register'])
 def register(message):
     chat_id = message.chat.id
@@ -47,12 +47,13 @@ def handle_docs(message):
         f.write(res.content)
     bot.send_message(chat_id, "파일을 성공적으로 받았습니다.")
     bot.send_message(chat_id, "파일 등록을 시작합니다. 최대 2~3분 걸릴 수 있습니다.")
-    if file_handle_pool[0] == "set_group":
-        reply_after_parse_g(chat_id, file_name)
-        file_handle_pool.remove("set_group")
-    elif file_handle_pool[0] == "set_menu":
-        reply_after_parse_m(chat_id, file_name)
-        file_handle_pool.remove("set_menu")
+    if len(file_handle_pool) > 0:   
+        if file_handle_pool[0] == "set_group":
+            reply_after_parse_g(chat_id, file_name)
+            file_handle_pool.remove("set_group")
+        elif file_handle_pool[0] == "set_menu":
+            reply_after_parse_m(chat_id, file_name)
+            file_handle_pool.remove("set_menu")
         
 @bot.message_handler(commands=['hide'])
 def command_hide(message):
