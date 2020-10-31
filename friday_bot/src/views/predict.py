@@ -14,6 +14,8 @@ def predict(chat_id):
     # 이게 방식이 최소 전날 데이터는 받아야할듯?
     # 2일치 데이터는 받고 생각
     # res.text에서 json 데이터 안줬을때 예외처리 생각해야함
-    msg = json.loads(res.text)["msg"]
-    bot.send_message(chat_id, msg)
-
+    res = json.loads(res.text)
+    if res["status"] == "ok":
+        pass
+    elif res["status"] == "error":
+        bot.send_message(chat_id, res["msg"])
