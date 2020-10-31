@@ -1,4 +1,4 @@
-from bot import bot, loc_handle_pool
+from bot import bot, loc_handle_pool, file_handle_pool
 import os
 import telebot
 import logging

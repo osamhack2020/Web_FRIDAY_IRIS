@@ -37,10 +37,10 @@ def callback_menu(call):
     if call.message and call.data.isalpha():
         if call.data == "a":
             file_handle_pool.append("set_group")
-            req_group(chat_id)
+            req_file(chat_id)
         elif call.data == "b":
-            file_handle_pool.append("set_menu")
-            req_group(chat_id)
+            file_handle_pool.append("set_menu_info")
+            req_file(chat_id)
         elif call.data == "c":
             report_uneater(chat_id)
         elif call.data == "d":
@@ -66,7 +66,8 @@ def report_uneater(chat_id):
         sent = bot.send_message(chat_id, "버튼을 누르면 식사 권유 메시지를 보냅니다.", reply_markup = markup)
     else:
         bot.send_message(chat_id, "미 식사자가 없습니다")
-def req_group(chat_id):
+
+def req_file(chat_id):
     if str(chat_id) not in sess:
         bot.send_message(chat_id, "로그인 후 이용해주세요")
     else:
@@ -75,6 +76,8 @@ def req_group(chat_id):
                 bot.send_message(chat_id, "인원 정보 파일을 보내주세요")
             elif file_handle_pool[0] == "set_menu":
                 bot.send_message(chat_id, "메뉴 정보 파일을 보내주세요")
+            elif file_handle_pool[0] == "set_menu_info":
+                bot.send_message(chat_id, "메뉴 세부 정보 파일을 보내주세요")
             
 def reply_after_parse_g(chat_id, file_name):
     c = get_user_cafeteria_id(chat_id)

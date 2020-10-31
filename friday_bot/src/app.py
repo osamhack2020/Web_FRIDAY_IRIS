@@ -1,17 +1,12 @@
-from bot import bot, file_handle_pool, MYTOKEN, sess, download_path
+from bot import bot, file_handle_pool, MYTOKEN, sess, download_path, logger
 import telebot
-import logging
 from views.register import check_register_code
-from views.main import check_password, reply_after_parse_g
-from views.menuinfo import reply_after_parse_m
+from views.main import check_password, reply_after_parse_g, req_file
+from views.menuinfo import reply_after_parse_m, reply_after_parse_mi
 from models.models import init_db
 import os
 import requests
 init_db()
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -54,6 +49,11 @@ def handle_docs(message):
         elif file_handle_pool[0] == "set_menu":
             reply_after_parse_m(chat_id, file_name)
             file_handle_pool.remove("set_menu")
+        elif file_handle_pool[0] == "set_menu_info":
+            reply_after_parse_mi(chat_id, file_name)
+            file_handle_pool.remove("set_menu_info")
+            file_handle_pool.append("set_menu")
+            req_file(chat_id)
         
 @bot.message_handler(commands=['hide'])
 def command_hide(message):

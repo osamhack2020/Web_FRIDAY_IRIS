@@ -1,5 +1,5 @@
 # coding: utf-8
-from sqlalchemy import Column, Integer, String, ForeignKey, Table, Date, Enum, Boolean, SmallInteger
+from sqlalchemy import Column, Integer, String, ForeignKey, Table, Date, Enum, Boolean, SmallInteger, Float, Text
 from sqlalchemy.orm import relationship
 import sqlalchemy.exc as SA
 from sqlalchemy.ext.declarative import declarative_base
@@ -21,6 +21,16 @@ class MemberChatIdMapping(Base):
     def __init__(self, member_id, chat_id):
         self.member_id = member_id
         self.chat_id = chat_id
+
+class RealHeadcount(Base):
+    __tablename__ = 'real_headcount'
+    id = Column(Integer, primary_key=True, info='데이터 인덱스')
+    date_id = Column(ForeignKey('date_mealtime_mapping.id', ondelete='RESTRICT', onupdate='RESTRICT'), nullable=False, info='날짜 인덱스')
+    n = Column(Integer, nullable=False, info="실 식수인원 수")
+
+    def __init__(self, date_id, n):
+        self.date_id = date_id
+        self.n = n
 
 class RegisterCode(Base):
  
@@ -67,17 +77,30 @@ t_daily_menu = Table(
     'daily_menu',
     Base.metadata,
     Column('date_id', ForeignKey('date_mealtime_mapping.id', ondelete='RESTRICT', onupdate='RESTRICT'), nullable=False, index=True, info='날짜 인덱스'),
+    Column('cafeteria_id', ForeignKey('cafeteria_list.id', ondelete='RESTRICT', onupdate='RESTRICT'), nullable=False, info='식당 인덱스'),
     Column('menu_id', ForeignKey('menu_info.id', ondelete='RESTRICT', onupdate='RESTRICT'), nullable=False, info='메뉴 인덱스')
 )
+
+class FitData(Base):
+    __tablename__ = 'fit_data'
+    id = Column(Integer, primary_key=True, info='데이터 인덱스')
+    serial = Column(Text, nullable=False)
+    token_len = Column(Integer, nullable=False)
+
+    def __init__(self, serial, token_len):
+        self.serial = serial
+        self.token_len = token_len
 
 class MenuInfo(Base):
     __tablename__ = 'menu_info'
 
     id = Column(Integer, primary_key=True, info='메뉴 인덱스')
     menu_name = Column(String(45), nullable=False, info='메뉴 이름')
-    meal_type = Column(String(45), nullable=False, info='메뉴 종류 ( 주식 / 밑 반찬 / 후식 )')
-    cooking_method = Column(String(45), nullable=False, info='조리 방법 ( 대 분류 )')
-    ingredient = Column(String(66), nullable=True, info='조리 재료 ( 중분류 )') # sum(all) * 3(hangul) / 2 (not all) , 대분류에서 끝나는 경우가 있어서 null가능 처리 
+    info_serial = Column(Text, nullable=False, info='예) "구이류,튀김류" 이런 방식으로 데이터 저장')
+    
+    def __init__(self, menu_name, info_serial):
+        self.menu_name = menu_name
+        self.info_serial = info_serial
 
 class DateMealtimeMapping(Base):
     __tablename__ = 'date_mealtime_mapping'
@@ -106,33 +129,26 @@ class DailyHolidayCheck(DateMealtimeMapping):
     after_long_weekend = Column(Boolean, nullable=False, info='연휴 ( 3일 이상 ) 다음날 여부')
     in_end_year = Column(Boolean, nullable=False, info='연말 ( 12 /  21~31 ) 여부')
 
+class DailyWeather(Base):
 
-class DailyWeatherInfo(DateMealtimeMapping):
-    __tablename__ = 'daily_weather_info'
+    __tablename__ = 'daily_weather'
+    id = Column(Integer, primary_key=True, info='데이터 인덱스')
+    date = Column(Date, nullable=False, info='날짜(20200101)')
+    h = Column(Integer, nullable=False)
+    t = Column(Float, nullable=False)
+    hm = Column(Integer, nullable=False)
+    ws = Column(Float, nullable=False)
+    rain = Column(Boolean, nullable=False, info='비')
+    snow = Column(Boolean, nullable=False, info='눈')
 
-    date_id = Column(ForeignKey('date_mealtime_mapping.id', ondelete='RESTRICT', onupdate='RESTRICT'), primary_key=True, info='날짜 인덱스')
-    is_abnormal_temperature = Column(Boolean, nullable=False, info='이상 기온 여부')
-    is_heat_wave = Column(Boolean, nullable=False, info='폭염 여부')
-    snow = Column(Boolean, nullable=False, info='눈 (  진눈깨비 비포함 )')
-    rain = Column(Boolean, nullable=False, info='비 ( 진눈깨비 포함 )')
-    discomfort_index = Column(Enum('low', 'normal', 'high', 'very high'), nullable=False, info='불퀘지수')
-    cloudy = Column(Enum('clear', 'little cloudy', 'cloudy', 'grey'), nullable=False, info='흐림 여부')
-    wind_chill_temperature = Column(Integer, nullable=False, info='체감 온도')
-
-
-class PredictLog(DateMealtimeMapping):
-    __tablename__ = 'predict_log'
-
-    date_id = Column(ForeignKey('date_mealtime_mapping.id', ondelete='RESTRICT', onupdate='RESTRICT'), primary_key=True, info='날짜 인덱스')
-    predict_real_count = Column(SmallInteger, nullable=False, info='예측한 실 식수 인원')
-
-
-class SpecialEvent(DateMealtimeMapping):
-    __tablename__ = 'special_event'
-
-    date_id = Column(ForeignKey('date_mealtime_mapping.id', ondelete='RESTRICT', onupdate='RESTRICT'), primary_key=True, info='날짜 인덱스')
-    is_positive = Column(Boolean, nullable=False, info='긍정 이벤트 ( 특식, 복날, 훈련 등 식수 증가 )')
-    is_negative = Column(Boolean, nullable=False, info='부정 이벤트 ( 외부기관 훈련 )')
+    def __init__(self, date, h, t, hm, ws, rain, snow):
+        self.date = date
+        self.h = h
+        self.t = t
+        self.hm = hm
+        self.ws = ws
+        self.rain = rain
+        self.snow = snow
 
 class GroupList(Base):
     __tablename__ = 'group_list'
